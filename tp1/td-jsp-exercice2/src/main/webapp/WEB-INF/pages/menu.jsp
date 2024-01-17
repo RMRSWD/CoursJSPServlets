@@ -5,23 +5,27 @@
   Time: 16:38
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Menu</title>
+    <jsp:useBean id="utilisateur" type="modele.Utilisateur" scope="session"/>
 </head>
 <body>
-<h1>Menu:</h1><br>
+<h1>Menu:</h1>
+
+<b>${utilisateur.login}</b>
 <ul>
         <li>
-           <a href="pel/afficherlesmatchs">Afficher les matchs sur les quels parier</a>
+           <a href="/pel/parisouverts">Afficher les matchs sur les quels parier</a>
         </li>
 
     <li>
-        <a href="pel/afficherlesparis">Afficher les paris</a>
+        <a href="/pel/afficherlesparis">Afficher les paris</a>
     </li>
     <li>
-        <a href="pel/deconnexion">Déconnexion</a>
+        <a href="/pel/deconnexion">Déconnexion</a>
     </li>
 </ul>
 </body>
