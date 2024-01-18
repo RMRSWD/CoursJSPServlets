@@ -18,9 +18,11 @@ import java.util.Collection;
 public class Controleur extends HttpServlet {
     //    private FacadeParis facadeParis = new FacadeParisStaticImpl();
     private FacadeParis facadeParis;
+    private Utilisateur utilisateur;
 
     public Controleur() {
         this.facadeParis = new FacadeParisStaticImpl();
+
 
     }
 
@@ -45,28 +47,42 @@ public class Controleur extends HttpServlet {
             }
             case ("parisouverts"): {
                 request.getSession().setAttribute("parisOuverts",facadeParis.getMatchsPasCommences());
-                destination = "/WEB-INF/pages/parisouverts.jsp";
+                destination = "/WEB-INF/pages/parisOuverts.jsp";
                 break;
             }
             case ("afficherlesparis"): {
-                destination = "/WEB-INF/pages/afficherlesparis.jsp";
+                String idLogin = this.utilisateur.getLogin();
+                Pari mesparis = (Pari) this.facadeParis.getMesParis(idLogin);
+                request.getSession().setAttribute("mesparis",mesparis);
+                destination = "/WEB-INF/pages/affichermesparis.jsp";
                 break;
             }
+
             case ("deconnexion"): {
-                destination = "/WEB-INF/pages/deconnexion";
+                destination = "/WEB-INF/pages/deconnexion.jsp";
                 break;
             }
             case ("connexion"): {
                 String email = request.getParameter("username");
                 String password = request.getParameter("password");
                 try {
-                    Utilisateur utilisateur = this.facadeParis.connexion(email, password);
+                     this.utilisateur = this.facadeParis.connexion(email, password);
                     request.getSession().setAttribute("utilisateur",utilisateur);
                     destination = "/WEB-INF/pages/menu.jsp";
                 } catch (UtilisateurDejaConnecteException | InformationsSaisiesIncoherentesException e) {
 //                    throw new RuntimeException(e);
                     destination = "/WEB-INF/pages/notFound.jsp";
                 }
+                break;
+            }
+            case("confirmationPari"):{
+                long idMatch = Long.parseLong(request.getParameter("id"));
+                Pari pari = this.facadeParis.getPari(idMatch);
+                Match match = this.facadeParis.getMatch(idMatch);
+                request.getSession().setAttribute("match",match);
+                request.getSession().setAttribute("pari",pari);
+                destination = "/WEB-INF/pages/parierMatch.jsp";
+                break;
             }
         }
         request.getServletContext().getRequestDispatcher(destination).forward(request, response);

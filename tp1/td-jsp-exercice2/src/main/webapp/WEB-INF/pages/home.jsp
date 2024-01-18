@@ -13,10 +13,10 @@
 <body>
 <h1>Pages Connexion</h1>
 <form action="/pel/connexion" method="post">
-    <label for="username">Nom d'utilisateur ou E-mail :</label>
+    <label >Nom d'utilisateur ou E-mail :</label>
     <input type="text" id="username" name="username" required>
 
-    <label for="password">Mot de passe :</label>
+    <label >Mot de passe :</label>
     <input type="password" id="password" name="password" required>
 
     <button type="submit">Connexion</button>

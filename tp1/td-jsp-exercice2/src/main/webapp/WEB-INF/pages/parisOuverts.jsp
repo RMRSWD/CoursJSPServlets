@@ -14,14 +14,15 @@
     <jsp:useBean id="parisOuverts" type="java.util.Collection" scope="session"/>
 </head>
 <body>
-<p>Bonjour ${utilisateur.login}</p>
+<h1>Bonjour ${utilisateur.login}</h1>
 <ul>
     <c:forEach items="${parisOuverts}" var="match">
         <li>
             match: ${match.sport} - ${match.equipe1} vs ${match.equipe2}
+            <a href="/pel/confirmationPari?id=${match.idMatch}">parier</a>
         </li>
-
     </c:forEach>
+    <a href="/pel/home">Retourne au menu</a>
 </ul>
 </body>
 </html>
