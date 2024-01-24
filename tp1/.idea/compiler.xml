@@ -10,9 +10,5 @@
         <module name="td-jsp-exercice2" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="td-jsp-exercice1" target="17" />
-      <module name="td-jsp-exercice2" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>

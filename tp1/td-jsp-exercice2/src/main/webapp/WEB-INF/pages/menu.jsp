@@ -22,7 +22,7 @@
         </li>
 
     <li>
-        <a href="/pel/affichermesparis">Afficher les paris</a>
+        <a href="/pel/affichermesparis">Afficher mes paris</a>
     </li>
     <li>
         <a href="/pel/deconnexion">Déconnexion</a>

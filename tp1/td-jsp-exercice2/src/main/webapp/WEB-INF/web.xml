@@ -12,4 +12,7 @@ https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
         <servlet-name>controleur</servlet-name>
         <url-pattern>/pel/*</url-pattern>
     </servlet-mapping>
+    <listener>
+        <listener-class>listeners.ListenerApplication</listener-class>
+    </listener>
 </web-app>

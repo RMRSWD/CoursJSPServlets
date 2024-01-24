@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/td-jsp-exercice1/td-jsp-exercice1.iml" filepath="$PROJECT_DIR$/td-jsp-exercice1/td-jsp-exercice1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/td-jsp-exercice2/td-jsp-exercice2.iml" filepath="$PROJECT_DIR$/td-jsp-exercice2/td-jsp-exercice2.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/tp1.iml" filepath="$PROJECT_DIR$/.idea/tp1.iml" />
     </modules>
   </component>
