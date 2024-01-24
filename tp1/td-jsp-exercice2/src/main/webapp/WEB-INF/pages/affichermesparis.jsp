@@ -19,7 +19,8 @@
 <c:forEach items="${mesparis}" var = "paris">
     <li>
         sport: ${paris.match.sport} - ${paris.match.equipe1} vs ${paris.match.equipe2} ${paris.match.quand}. Mise de ${paris.montant} sur ${paris.vainqueur}
-        <a href="/pel/confirmationAnnulerPari?id=${paris.idPari}"><a href="/pel/annuler">Annuler</a></a>
+<%--        <a href="/pel/annulerpari?id=${paris.idPari}">Annuler</a>--%>
+        <a href="/pel/annulerpari?id=${paris.idPari}">annuler</a>
 
     </li>
 

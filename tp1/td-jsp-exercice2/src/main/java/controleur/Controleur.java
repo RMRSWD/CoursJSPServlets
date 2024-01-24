@@ -24,16 +24,17 @@ public class Controleur extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doProcess(request,response);
-
+        this.doProcess(request, response);
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.doProcess(request,response);
+        this.doProcess(request, response);
+
     }
 
     private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] path = request.getRequestURI().split("/");
-           FacadeParis facadeParis = (FacadeParis) request.getServletContext().getAttribute("facade");
+        FacadeParis facadeParis = (FacadeParis) request.getServletContext().getAttribute("facade");
         String cleNavigation = path[path.length - 1];
         String destination = "/WEB-INF/pages/notFound.jsp";
         switch (cleNavigation) {
@@ -42,7 +43,7 @@ public class Controleur extends HttpServlet {
                 break;
             }
             case ("parisouverts"): {
-                request.getSession().setAttribute("parisOuverts",facadeParis.getMatchsPasCommences());
+                request.getSession().setAttribute("parisOuverts", facadeParis.getMatchsPasCommences());
                 destination = "/WEB-INF/pages/parisOuverts.jsp";
                 break;
             }
@@ -62,8 +63,8 @@ public class Controleur extends HttpServlet {
                 String email = request.getParameter("username");
                 String password = request.getParameter("password");
                 try {
-                     this.utilisateur = facadeParis.connexion(email, password);
-                    request.getSession().setAttribute("utilisateur",utilisateur);
+                    this.utilisateur = facadeParis.connexion(email, password);
+                    request.getSession().setAttribute("utilisateur", utilisateur);
                     destination = "/WEB-INF/pages/menu.jsp";
                 } catch (UtilisateurDejaConnecteException | InformationsSaisiesIncoherentesException e) {
 //                    throw new RuntimeException(e);
@@ -71,22 +72,44 @@ public class Controleur extends HttpServlet {
                 }
                 break;
             }
-            case("confirmationPari"):{
+            case ("confirmationPari"): {
                 long idMatch = Long.parseLong(request.getParameter("id"));
                 Pari pari = facadeParis.getPari(idMatch);
                 Match match = facadeParis.getMatch(idMatch);
-                request.getSession().setAttribute("match",match);
-                request.getSession().setAttribute("pari",pari);
+                request.getSession().setAttribute("match", match);
+                request.getSession().setAttribute("pari", pari);
                 destination = "/WEB-INF/pages/parierMatch.jsp";
                 break;
             }
-            case("affichermesparis"):{
+            case ("affichermesparis"): {
 //                String l = (Utilisateur)request.getSession().getAttribute("utilisateur")).getLogin()
 //                FacadeParis mesParis = (FacadeParis) facadeParis.getMesParis(login);
-                Collection<Pari> mesParis = facadeParis.getMesParis(((Utilisateur)request.getSession().getAttribute("utilisateur")).getLogin());
+                Collection<Pari> mesParis = facadeParis.getMesParis(((Utilisateur) request.getSession().getAttribute("utilisateur")).getLogin());
 //                request.getSession().setAttribute("mesParis",facadeParis.getMesParis(((Utilisateur)request.getSession().getAttribute("utilisateur")).getLogin()));
-                request.getSession().setAttribute("mesparis",mesParis);
+                request.getSession().setAttribute("mesparis", mesParis);
                 destination = "/WEB-INF/pages/affichermesparis.jsp";
+            }
+            case ("annulerpari"): {
+//                long idParis = Long.parseLong(request.getParameter("id"));
+                long idParis = Long.parseLong(request.getParameter("id"));
+//                long idParis = 100;
+
+//                String loginUtilisateur = ((Utilisateur) request.getSession().getAttribute("utilisateur")).getLogin();
+                try {
+                    Pari pari = facadeParis.getPari(idParis);
+                    request.getSession().setAttribute("pari",pari);
+                    facadeParis.annulerPari(((Utilisateur)request.getSession().getAttribute("utilisateur")).getLogin(),idParis);
+
+
+                   /* facadeParis.annulerPari(loginUtilisateur, idParis);
+                    Collection<Pari> mesParis = facadeParis.getMesParis(((Utilisateur) request.getSession().getAttribute("utilisateur")).getLogin());
+                    request.getSession().setAttribute("mesParis", mesParis);
+                    request.getSession().setAttribute("idParis", idParis);
+                    destination = "/WEB-INF/pages/annulerParis.jsp";*/
+                } catch (OperationNonAuthoriseeException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
         }
         request.getServletContext().getRequestDispatcher(destination).forward(request, response);
