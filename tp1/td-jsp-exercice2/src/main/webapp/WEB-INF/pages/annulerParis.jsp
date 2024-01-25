@@ -10,15 +10,11 @@
 <html>
 <head>
     <title>Annuler le pari</title>
-    <jsp:useBean id="mesParis" type="java.util.Collection<modele.Pari>" scope="session"/>
-    <jsp:useBean id="idParis" type="modele.Pari" scope="session"/>
+    <jsp:useBean id="pari" type="modele.Pari" scope="request"/>
 </head>
 <body>
-<c:forEach var="parismoi" items="${mesParis}">
-    <c:if test="${parismoi.idPari eq idParis}">
-        <p> Vous avez bien annuler le match ${parismoi.match.sport} - ${parismoi.match.equipe1} vs ${parismoi.match.equipe1} à ${parismoi.match.quand}</p>
-    </c:if>
-</c:forEach>
+        <p> Vous avez bien annuler le match ${pari.match.sport} - ${pari.match.equipe1} vs ${pari.match.equipe2} à ${pari.match.quand} pour montant de ${pari.montant}</p>
+
 <a href="/pel/home">Retourner</a>
 </body>
 </html>

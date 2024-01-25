@@ -16,8 +16,30 @@
 </head>
 <body>
 <fieldset>
+    <legend>Saisie du Montant et du Verdict</legend>
+<form action="#" method="post">
+    <!-- Champ pour le montant -->
+    <label for="montant">Montant :</label>
+    <input type="number" id="montant" name="montant" required>
+    <br>
+
+    <!-- Champ pour le verdict -->
+    <label for="verdict">Verdict :</label>
+    <select id="verdict" name="verdict" required>
+        <option value="gagner">Gagner</option>
+        <option value="perdre">Perdre</option>
+        <option value="annuler">Annuler</option>
+    </select>
+    <br>
+
+    <!-- Bouton de soumission du formulaire -->
+    <input type="submit" value="Soumettre">
+</form>
+</fieldset>
+<fieldset>
     <legend>
         <p>${utilisateur.login}</p>
+
     </legend>
     <p> Vous avez parié ${pari.montant} sur le resultat ${match.resultat} pour le match: ${match.equipe1} vs ${match.equipe2} le ${match.quand}</p>
     <a href="/pel/home">Retourne au menu</a>

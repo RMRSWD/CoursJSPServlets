@@ -12,6 +12,7 @@ import modele.Utilisateur;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Objects;
 
 public class Controleur extends HttpServlet {
     //    private FacadeParis facadeParis = new FacadeParisStaticImpl();
@@ -62,14 +63,26 @@ public class Controleur extends HttpServlet {
             case ("connexion"): {
                 String email = request.getParameter("username");
                 String password = request.getParameter("password");
-                try {
-                    this.utilisateur = facadeParis.connexion(email, password);
-                    request.getSession().setAttribute("utilisateur", utilisateur);
-                    destination = "/WEB-INF/pages/menu.jsp";
-                } catch (UtilisateurDejaConnecteException | InformationsSaisiesIncoherentesException e) {
-//                    throw new RuntimeException(e);
-                    destination = "/WEB-INF/pages/notFound.jsp";
+                String erreur = "";
+                if (Objects.isNull(email) || email.length()<2 ) {
+                    /**
+                     * Soucis avec le login
+                     */
+                    destination = "/WEB-INF/pages/home.jsp";
+                    erreur += "Le pseudo est obligatoire et de taille 2 min.";
+
                 }
+
+                if (erreur.length()<=0) {
+                    try {
+                        this.utilisateur = facadeParis.connexion(email, password);
+                        request.getSession().setAttribute("utilisateur", utilisateur);
+                        destination = "/WEB-INF/pages/menu.jsp";
+                    } catch (UtilisateurDejaConnecteException | InformationsSaisiesIncoherentesException e) {
+                        destination = "/WEB-INF/pages/notFound.jsp";
+                    }
+                }
+                request.setAttribute("erreur",erreur);
                 break;
             }
             case ("confirmationPari"): {
@@ -88,6 +101,7 @@ public class Controleur extends HttpServlet {
 //                request.getSession().setAttribute("mesParis",facadeParis.getMesParis(((Utilisateur)request.getSession().getAttribute("utilisateur")).getLogin()));
                 request.getSession().setAttribute("mesparis", mesParis);
                 destination = "/WEB-INF/pages/affichermesparis.jsp";
+                break;
             }
             case ("annulerpari"): {
 //                long idParis = Long.parseLong(request.getParameter("id"));
@@ -97,15 +111,14 @@ public class Controleur extends HttpServlet {
 //                String loginUtilisateur = ((Utilisateur) request.getSession().getAttribute("utilisateur")).getLogin();
                 try {
                     Pari pari = facadeParis.getPari(idParis);
-                    request.getSession().setAttribute("pari",pari);
+                    /*request.getSession().setAttribute("pari",pari);*/
                     facadeParis.annulerPari(((Utilisateur)request.getSession().getAttribute("utilisateur")).getLogin(),idParis);
 
-
-                   /* facadeParis.annulerPari(loginUtilisateur, idParis);
-                    Collection<Pari> mesParis = facadeParis.getMesParis(((Utilisateur) request.getSession().getAttribute("utilisateur")).getLogin());
-                    request.getSession().setAttribute("mesParis", mesParis);
-                    request.getSession().setAttribute("idParis", idParis);
-                    destination = "/WEB-INF/pages/annulerParis.jsp";*/
+                  /*  facadeParis.annulerPari(loginUtilisateur, idParis);*/
+                    /*Collection<Pari> mesParis = facadeParis.getMesParis(((Utilisateur) request.getSession().getAttribute("utilisateur")).getLogin());
+                    request.getSession().setAttribute("mesParis", mesParis);*/
+                    request.setAttribute("pari", pari);
+                    destination = "/WEB-INF/pages/annulerParis.jsp";
                 } catch (OperationNonAuthoriseeException e) {
                     throw new RuntimeException(e);
                 }
