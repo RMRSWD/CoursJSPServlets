@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/modeles/modelecalculatricedynamique-1.0/modelecalculatricedynamique.iml" filepath="$PROJECT_DIR$/modeles/modelecalculatricedynamique-1.0/modelecalculatricedynamique.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modeles/modelecalculatricedynamique-2.0/modelecalculatricedynamique (1).iml" filepath="$PROJECT_DIR$/modeles/modelecalculatricedynamique-2.0/modelecalculatricedynamique (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/modeles/modeleetudiant/modeleetudiant/modeleetudiant.iml" filepath="$PROJECT_DIR$/modeles/modeleetudiant/modeleetudiant/modeleetudiant.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/td-struts-exercice1.iml" filepath="$PROJECT_DIR$/.idea/td-struts-exercice1.iml" />
+    </modules>
+  </component>
+</project>
